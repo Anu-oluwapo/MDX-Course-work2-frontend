@@ -89,6 +89,9 @@
                                 v-on:click='addToCart(lessons)' v-if='canAddToCart(lessons)'>Add To Cart</button>
                             <button hidden style="float: right;" href="#" class="btn btn-primary" v-else>Add To
                                 Cart</button>
+
+
+
                             <br>
                             <div>
                                 <!-- <p>
@@ -157,7 +160,7 @@
                                 name</p>
 
 
-                            <input style="margin-bottom: 50px;" @click="sendOrder(order)" v-else class="btn btn-primary"
+                            <input style="margin-bottom: 50px;" @click="newCart()" v-else class="btn btn-primary"
                                 type="submit" value="Place Order">
                         </form>
 
@@ -195,10 +198,9 @@
                 },
 
                 order: {
-                    "name": "",
-                    "number": "",
-                    "productId": "",
-                    "spaces": "",
+                    name: "",
+                    number: "",
+                    orderdProducts: [],
                 },
 
 
@@ -225,27 +227,60 @@
 
             methods: {
 
-                sendOrder(order) {
+                // sendOrder(order) {
+                //     console.log('Sending Order to server');
+                //     fetch('http://localhost:2000/collection/orderInfo', {
+                //         method: "POST",
+                //         body: JSON.stringify(this.order),
+                //         headers: {
+                //             "Content-type": "application/json; charset=UTF-8",
+                //         }
+                //     })
+
+                // },
+
+                addToCart: function (lessons) {
+                    this.cart.push(lessons);
+                    //this.purchase.push(lessons.availablespace, lessons._id)
+                },
+
+                newCart() {
+                    let nCart = [];
+                    this.cart.map((item) => {
+                        var counter = 0;
+                        this.cart.forEach(element => (element === item && counter++));
+                        nCart.push({ id: item.id, subject: item.subject, price: item.price, location: item.location, noOfSpace: counter })
+                    })
+
+
+
+                    const eliminatedCart = Array.from(new Set(nCart.map(l => l.id)))
+                        .map(id => {
+                            return nCart.find(a => a.id === id)
+                        })
+
+                    this.order.orderdProducts = eliminatedCart;
+                    console.log(this.order);
+
                     console.log('Sending Order to server');
-                    fetch('http://localhost:2000/collection/orderInfo', {
+                    fetch('https://individual-coursework2-backend.herokuapp.com/collection/orderInfo', {
                         method: "POST",
-                        body: JSON.stringify(app.order, app.cart),
+                        body: JSON.stringify(this.order),
                         headers: {
                             "Content-type": "application/json; charset=UTF-8",
                         }
                     })
-                    // .then(
-                    //     function (response) {
-                    //         response.send(JSON.stringify(app.order, app.cart))
-                    //     }
-                    // )
+
+
+
+                    if (confirm('Cheers ' + this.order.name + ' ,your order has been successfully submitted')) {
+                        window.location.reload();
+                    }
+
+
                 },
 
-                addToCart: function (lessons) {
 
-                    this.cart.push(lessons);
-                    this.purchase.push(lessons.availablespace, lessons._id)
-                },
 
                 deleteFromCart: function (lessons, cart) {
                     this.cart.splice(this.cart.indexOf(lessons), 1);
@@ -258,7 +293,7 @@
 
                 submitForm(order) {
 
-                    alert('Cheers ' + order.name + ' ,your order has been successfully submitted');
+
 
                 },
 
