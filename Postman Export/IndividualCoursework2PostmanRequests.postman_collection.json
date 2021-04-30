@@ -1,0 +1,100 @@
+{
+	"info": {
+		"_postman_id": "b9a2d389-143e-4692-bb9f-6ae683e10d69",
+		"name": "IndividualCoursework2PostmanRequests",
+		"description": "Postman Requests for individual coursework 2 ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:2000/collection/lessonInfo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"_id\": {\r\n    \"$oid\": \"608ad1d3979431728cd64645\"\r\n  },\r\n  \"id\": 1,\r\n  \"subject\": \"Math\",\r\n  \"location\": \"London\",\r\n  \"price\": 300,\r\n  \"availablespace\": 4,\r\n  \"rating\": 2\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2000/collection/lessonInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2000",
+					"path": [
+						"collection",
+						"lessonInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:2000/collection/orderInfo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\r\n    {\r\n        \"name\": \"Andrew\",\r\n        \"number\": \"098987542\" ,\r\n        \"orderdProducts\" : [ {\r\n        \"id\": 7,\r\n        \"subject\": \"Social Studies\",\r\n        \"location\": \"Edinburgh\" ,\r\n        \"price\" : 260,\r\n        \"noOfSpace\": 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 8,\r\n        \"subject\": \"Health Education\",\r\n        \"location\": \"Nottinham\" ,\r\n        \"price\" : 900,\r\n        \"noOfSpace\": 2,\r\n        \"rating\" : 2\r\n        \r\n    }]\r\n        \r\n    }\r\n\r\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2000/collection/orderInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2000",
+					"path": [
+						"collection",
+						"orderInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:2000/collection/lessonInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\r\n    {\r\n        \"id\": 1,\r\n        \"subject\": \"Math\",\r\n        \"location\": \"London\" ,\r\n        \"price\" : 300,\r\n        \"availablespace\": 5,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 2,\r\n        \"subject\": \"English\",\r\n        \"location\": \"South Hampton\" ,\r\n        \"price\" : 100,\r\n        \"availablespace\": 7,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 3,\r\n        \"subject\": \"Music\",\r\n        \"location\": \"Germany\" ,\r\n        \"price\" : 200,\r\n        \r\n        \"availablespace\": 9,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 4,\r\n        \"subject\": \"Geography\",\r\n        \"location\": \"Hendon\" ,\r\n        \"price\" : 250,\r\n        \"availablespace\": 6,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 5,\r\n        \"subject\": \"History\",\r\n        \"location\": \"Liverpool\" ,\r\n        \"price\" : 700,\r\n        \"availablespace\": 12,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 6,\r\n        \"subject\": \"Theology\",\r\n        \"location\": \"Oxford\" ,\r\n        \"price\" : 120,\r\n        \"availablespace\": 10,\r\n        \"rating\" : 2\r\n    \r\n    },\r\n    \r\n    {\r\n        \"id\": 7,\r\n        \"subject\": \"Social Studies\",\r\n        \"location\": \"Edinburgh\" ,\r\n        \"price\" : 260,\r\n        \"availablespace\": 24,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 8,\r\n        \"subject\": \"Health Education\",\r\n        \"location\": \"Nottinham\" ,\r\n        \"price\" : 900,\r\n        \"availablespace\": 15,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 9,\r\n        \"subject\": \"Business\",\r\n        \"location\": \"Manchester\" ,\r\n        \"price\" : 310,\r\n        \"availablespace\": 16,\r\n        \"rating\" : 2\r\n        \r\n    },\r\n    \r\n    {\r\n        \"id\": 10,\r\n        \"subject\": \"Info-Technology\",\r\n        \"location\": \"Brighton\" ,\r\n        \"price\" : 525,\r\n        \"availablespace\": 21,\r\n        \"rating\" : 2\r\n        \r\n    }\r\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:2000/collection/lessonInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "2000",
+					"path": [
+						"collection",
+						"lessonInfo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

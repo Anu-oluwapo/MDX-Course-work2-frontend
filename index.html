@@ -79,14 +79,18 @@
                             <h5 class="card-title">Subject : {{lessons.subject}}</h5>
                             <p class="card-text"> Location : {{lessons.location}} </p>
                             <p> <b>Price : ${{lessons.price}}</b></p>
-                            <p class="text-danger" v-if="lessons.availablespace === cartCount(lessons) "> Completely
+                            <p class="text-danger" v-if="lessons.availablespace === 0 "> Completely
                                 Booked</p>
                             <!-- <p class="text-danger" v-else-if="lessons.availablespace - cartCount(lessons.id) < 5"> Limited stock Only {{lessons.availablespace - cartCount(lessons.id)}} left!</p> -->
-                            <p class="text-success" v-else>Available Spaces : {{lessons.availablespace -
-                                cartCount(lessons)}}</p>
+                            <p class="text-success" v-else>Available Spaces : {{lessons.availablespace}}</p>
+
+                            <!-- <p class="text-success" v-else>Available Spaces : {{lessons.availablespace -
+                                    cartCount(lessons)}}</p> -->
 
                             <button style="float: right;" href="#" class="btn btn-primary"
-                                v-on:click='addToCart(lessons)' v-if='canAddToCart(lessons)'>Add To Cart</button>
+                                v-on:click='addToCart(lessons); decrement(lessons.id)' v-if='canAddToCart(lessons)'>Add
+                                To
+                                Cart</button>
                             <button hidden style="float: right;" href="#" class="btn btn-primary" v-else>Add To
                                 Cart</button>
 
@@ -160,8 +164,8 @@
                                 name</p>
 
 
-                            <input style="margin-bottom: 50px;" @click="newCart()" v-else class="btn btn-primary"
-                                type="submit" value="Place Order">
+                            <input style="margin-bottom: 50px;" @click="newCart(); update()" v-else
+                                class="btn btn-primary" type="submit" value="Place Order">
                         </form>
 
                         <!-- <p>{{order.name}}</p>
@@ -218,6 +222,7 @@
                                 // 'product' data property
                                 app.lesson = json;
                                 console.log(json);
+                                console.log(app.lesson);
                             });
                     }
                 );
@@ -238,6 +243,14 @@
                 //     })
 
                 // },
+
+                decrement(id) {
+                    var tempLesson = [...app.lesson]
+                    var finder = tempLesson.find((lessonss) => lessonss.id === id);
+                    var findIndex = tempLesson.indexOf(finder);
+                    tempLesson[findIndex].availablespace = tempLesson[findIndex].availablespace - 1;
+                    app.lesson = tempLesson;
+                },
 
                 addToCart: function (lessons) {
                     this.cart.push(lessons);
@@ -280,6 +293,19 @@
 
                 },
 
+                update() {
+                    console.log('Updating Lessons in server');
+                    fetch('https://individual-coursework2-backend.herokuapp.com/collection/lessonInfo', {
+                        method: "PUT",
+                        body: JSON.stringify(this.lesson),
+                        headers: {
+                            "Content-type": "application/json; charset=UTF-8",
+                        }
+                    })
+
+                    window.location.reload();
+                },
+
 
 
                 deleteFromCart: function (lessons, cart) {
@@ -298,7 +324,8 @@
                 },
 
                 canAddToCart: function (lessons) {
-                    return lessons.availablespace > this.cartCount(lessons);
+                    return lessons.availablespace > 0;
+                    // return lessons.availablespace > this.cartCount(lessons);
                 },
 
                 cartCount(id) {
